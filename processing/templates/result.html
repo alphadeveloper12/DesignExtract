@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Results</h1>
+
+    <!-- Back Button -->
+    <div class="mb-4">
+        <a href="{% url 'upload_image' %}" class="btn btn-primary">Back</a>
+    </div>
+
+    <div class="mb-4 d-flex ">
+        <div>
+            <h2>Image</h2>
+            <img src="{{ image_url }}" alt="Uploaded Image" class="img-fluid"/>
+        </div>
+        <div>
+            <h2>Pre Process Image</h2>
+            <img src="{{ processed_image_url }}" alt="Uploaded Image" class="img-fluid"/>
+        </div>
+        <div>
+            <h2>Contoured Image</h2>
+            <img src="{{ contoured_image_path }}" alt="Uploaded Image" class="img-fluid"/>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h2>Caption</h2>
+        <p>{{ caption }}</p>
+    </div>
+
+    <div class="mb-4">
+        <h2>Speed</h2>
+        <p>{{ speed }} seconds</p>
+    </div>
+
+    <div class="mb-4">
+        <h2>Precision</h2>
+        <ul class="list-group">
+            {% for name, value in precision.items %}
+                <li class="list-group-item">{{ name }}: {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>Recall</h2>
+        <ul class="list-group">
+            {% for name, value in recall.items %}
+                <li class="list-group-item">{{ name }}: {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>F1 Score</h2>
+        <ul class="list-group">
+            {% for name, value in f1_score.items %}
+                <li class="list-group-item">{{ name }}: {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>Detected Shapes</h2>
+        {% for image in processed_images_additional %}
+            <div class="col-md-3 mb-3">
+                <img src="{{ image }}" alt="Processed Image" class="img-fluid"/>
+            </div>
+        {% endfor %}
+        <h2>Processed Images</h2>
+        <div class="row">
+            {% for image in processed_images %}
+                <div class="col-md-3 mb-3">
+                    <img src="{{ MEDIA_URL }}{{ image }}" alt="Processed Image" class="img-fluid"/>
+                </div>
+            {% endfor %}
+            {% for image in processed_images_url1 %}
+                <div class="col-md-3 mb-3">
+                    <img src="{{ MEDIA_URL }}{{ image }}" alt="Processed Image" class="img-fluid"/>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
